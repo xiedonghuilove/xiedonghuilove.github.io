@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>XieDonghui&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="XieDonghui&#39;s Blog">
+<meta property="og:url" content="https://xiedonghuilove.github.io/index.html">
+<meta property="og:site_name" content="XieDonghui&#39;s Blog">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XieDonghui&#39;s Blog">
+  
+    <link rel="alternate" href="/atom.xml" title="XieDonghui&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">XieDonghui&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://xiedonghuilove.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Qt-国际化-动态切换中英文" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/26/Qt-国际化-动态切换中英文/" class="article-date">
+  <time datetime="2018-09-26T05:11:27.870Z" itemprop="datePublished">2018-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/26/Qt-国际化-动态切换中英文/">Qt 国际化 动态切换中英文</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于项目需要，需要在界面中实现动态切换中英文。由此记录下实现方法。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>如图所示：在右上角中有一个按钮切换选择中英文。<br><img src="$res/switchLanguage.png" alt="switchLanguage"><br>实现效果：</p>
+<ul>
+<li>点击菜单按钮后弹出两个子菜单列表。选择中英文。</li>
+</ul>
+<p>实现方法：</p>
+<ul>
+<li>将PushButton按钮转换为菜单按钮，在某些样式中，按钮的文本右侧会生成一个小三角形。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">m_menu  =  <span class="keyword">new</span>  QMenu;</span><br><span class="line">m_English  =  <span class="keyword">new</span>  QAction(tr(<span class="string">"English"</span>),<span class="keyword">this</span>);</span><br><span class="line">m_China  =  <span class="keyword">new</span>  QAction(tr(<span class="string">"中文"</span>),<span class="keyword">this</span>);</span><br><span class="line">m_menu-&gt;addAction(m_China);</span><br><span class="line">m_menu-&gt;addAction(m_English);</span><br><span class="line">m_pTitleBar-&gt;m_pBtnMenu-&gt;setMenu(m_menu);</span><br></pre></td></tr></table></figure>
+<p>设置菜单按钮的样式：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">m_menu-&gt;setStyleSheet(<span class="string">"QMenu&#123;\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  background-color:rgb(89,87,87);\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &#125;\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  QMenu::item&#123;\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  color:  rgb(225,225,225);\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  border:  1px  solid  rgb(60,60,60);\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  background-color:rgb(89,87,87);\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  padding:5px  30px  5px  5px;\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &#125;\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  QMenu::item:selected&#123;  \</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  background-color:rgb(235,110,36);\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &#125;\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  QMenu::item:pressed&#123;\</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  border:  1px  solid  rgb(60,60,61);  \</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  background-color:  rgb(220,80,6);  \</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &#125;"</span>);</span><br><span class="line"><span class="comment">//三角形按钮不显示</span></span><br><span class="line">m_pTitleBar-&gt;m_pBtnMenu-&gt;setStyleSheet(<span class="string">"QPushButton::menu-indicator&#123;image:none&#125;;"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>以上就可以实现将按钮装换为菜单按钮。</p>
+<h3 id="其次，需要将所有转换的字体前面添加上QObject-tr-表示可翻译。"><a href="#其次，需要将所有转换的字体前面添加上QObject-tr-表示可翻译。" class="headerlink" title="其次，需要将所有转换的字体前面添加上QObject::tr();表示可翻译。"></a>其次，需要将所有转换的字体前面添加上QObject::tr();表示可翻译。</h3><p>具体操作如下：</p>
+<ul>
+<li><h3 id="对用户可见的文本信息全部使用tr-进行封装。"><a href="#对用户可见的文本信息全部使用tr-进行封装。" class="headerlink" title="对用户可见的文本信息全部使用tr()进行封装。"></a>对用户可见的文本信息全部使用tr()进行封装。</h3></li>
+<li><h3 id="在pro中添加："><a href="#在pro中添加：" class="headerlink" title="在pro中添加："></a>在pro中添加：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TRANSLATIONS  +=  resources/tr_zh.ts  \</span><br><span class="line">		resources/tr_en.ts</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>选择：工具-&gt;外部-&gt;Qt语言家-&gt;更新翻译，则会生成对应的ts文件。</p>
+<p><img src="$res/ts.png" alt="ts"></p>
+<ul>
+<li><h3 id="翻译："><a href="#翻译：" class="headerlink" title="翻译："></a>翻译：</h3>使用Qt Linguist打开要翻译的ts文件，对翻译源进行相应语言的翻译。</li>
+</ul>
+<p><img src="$res/Qlist.png" alt="Qlist"></p>
+<p><img src="$res/Qlisttwo.png" alt="Qlisttwo"></p>
+<p>具体可参考：<a href="http://blog.csdn.net/liang19890820/article/details/50274409" title="Qt Linguist介绍" target="_blank" rel="noopener">Qt Linguist介绍</a></p>
+<ul>
+<li><h3 id="发布翻译，生成对应的xxx-qm文件"><a href="#发布翻译，生成对应的xxx-qm文件" class="headerlink" title="发布翻译，生成对应的xxx.qm文件"></a>发布翻译，生成对应的xxx.qm文件</h3> 使用Qt Liguust翻译完成以后，在Qt工具 –&gt; 外部 –&gt; Qt语言家 –&gt; 发布翻译<br>（中文，英文都要翻译。tr(“ “)中的文本只是一个源 Sources ，程序加载翻译文件后，就是将源替换为翻译后的文本，因此中英文都需要翻译。)</li>
+</ul>
+<p><img src="$res/list1.png" alt="list1"></p>
+<ul>
+<li><h3 id="添加xxx-qm文件进资源文件。"><a href="#添加xxx-qm文件进资源文件。" class="headerlink" title="添加xxx.qm文件进资源文件。"></a>添加xxx.qm文件进资源文件。</h3><p><img src="$res/res.png" alt="res"></p>
+</li>
+<li><h3 id="加载翻译文件："><a href="#加载翻译文件：" class="headerlink" title="加载翻译文件："></a>加载翻译文件：</h3><p>  使用QTranslator来加载生成的qm文件，就可以让程序显示指定的语言。</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QTranslator translator;</span><br><span class="line">translator.load(<span class="string">":/qm/main_widget_zh"</span>); </span><br><span class="line">app.installTranslator(&amp;translator);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>通过以上方法就可以实现静态的加载。也就是程序一开始运行的时候，加载相应的翻译文件。</p>
+<p>动态加载的话，就需要用到上述的菜单按钮，点击后添加槽函数：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//连接槽函数</span></span><br><span class="line">connect(m_menu,  SIGNAL(triggered(QAction*)),  <span class="keyword">this</span>, SLOT(slot_MenuTriggered(QAction*)));</span><br><span class="line"><span class="comment">//槽函数实现动态切换语言，加载翻译文件</span></span><br><span class="line"><span class="keyword">void</span>  MyMainWindow::slot_MenuTriggered(QAction  *m_TriggeredAction)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">static</span>  QTranslator*  translator;</span><br><span class="line">	  	<span class="keyword">if</span>  (translator  !=  <span class="literal">NULL</span>)&#123;</span><br><span class="line">	  		qApp-&gt;removeTranslator(translator);<span class="comment">//如果之前加载过翻译文件，则移除之前的翻译文件。</span></span><br><span class="line">		<span class="keyword">delete</span>  translator;</span><br><span class="line">	  		translator  =  <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">  	translator  =  <span class="keyword">new</span>  QTranslator;</span><br><span class="line">	<span class="keyword">if</span>(m_TriggeredAction-&gt;text()  ==QObject::tr(<span class="string">"中文"</span>))&#123;</span><br><span class="line">		<span class="keyword">if</span>(translator-&gt;load(<span class="string">":/qm/resources/tr_zh.qm"</span>))&#123;</span><br><span class="line">			qApp-&gt;installTranslator(translator);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>  <span class="keyword">if</span>(m_TriggeredAction-&gt;text() ==QObject::tr(<span class="string">"English"</span>))&#123;</span><br><span class="line">		<span class="keyword">if</span>(translator-&gt;load(<span class="string">":/qm/resources/tr_en.qm"</span>))&#123;</span><br><span class="line">			qApp-&gt;installTranslator(translator);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	ReTrenslate_Ui();<span class="comment">//再次调用，重新加载可见文本。实现翻译</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//重新加载可见文本</span></span><br><span class="line"><span class="keyword">void</span>  MyMainWindow::ReTrenslate_Ui()</span><br><span class="line">&#123;</span><br><span class="line">	m_pConnectWidget-&gt;m_pBtnConnect-&gt;setText(tr(<span class="string">"连接串口"</span>));</span><br><span class="line">	...</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该ReTrenslate_Ui()函数在MyMainWindow构造函数中的时候需要第一次调用。然后在动态切换语言以后需要再一次调用。</p>
+<p><strong><em>注意:如果语言库qm文件里面的字段一个都没有翻译的话，调用QTranslator::load（）加载的话会一直返回false,我项目中是中英文切换，所以一开始我是生成了两个qm文件，一个中文，一个英文的，中文语言库是直接更新然后发布，没有做任何翻译操作，所以导致加载中文语言库一直失败，至于原因查了半天也没有个所以然来，如果有了解的忘告知，如果需要恢复默认的直接load(“”)就可以了。</em></strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://xiedonghuilove.github.io/2018/09/26/Qt-国际化-动态切换中英文/" data-id="cjmipdeld0001tg7fo2jcf778" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/26/hello-world/" class="article-date">
+  <time datetime="2018-09-26T03:30:52.793Z" itemprop="datePublished">2018-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/26/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://xiedonghuilove.github.io/2018/09/26/hello-world/" data-id="cjmipdel70000tg7fv3ojnela" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/26/Qt-国际化-动态切换中英文/">Qt 国际化 动态切换中英文</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/26/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Xie Donghui<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
